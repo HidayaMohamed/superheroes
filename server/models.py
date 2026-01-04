@@ -12,7 +12,19 @@ metadata = MetaData(
 db = SQLAlchemy(metadata=metadata)
 
 class Hero(db.Model, SerializerMixin):
-    pass
+    __tablename__ = "heroes"
+
+    serialize_rules = ("-hero_powers.hero",)
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    super_name = db.Column(db.String)
+
+    hero_powers = db.relationship(
+        "HeroPower",
+        back_populates="hero",
+    )
+
 
 class Power(db.Model, SerializerMixin):
     pass
