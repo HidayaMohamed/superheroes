@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, make_response
+from flask import Flask,request, make_response,jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
@@ -41,7 +41,32 @@ def get_power(id):
         return {"error": "Power not found"}, 404
     return power.to_dict(), 200
 
+def update_power(id):
+    power = Power.query.get(id)
+    if not power:
+        return {"error": "Power not found"}, 404
+
+    try:
+        power.description = request.json.get("description")
+        db.session.commit()
+        return power.to_dict(), 200
+    except Exception as e:
+        return {"errors": [str(e)]}, 400
 
 
+@app.post("/hero_powers")
+def create_hero_power():
+    try:
+        hero_power = HeroPower(
+            strength=request.json["strength"],
+            hero_id=request.json["hero_id"],
+            power_id=request.json["power_id"]
+        )
 
-    
+        db.session.add(hero_power)
+        db.session.commit()
+
+        return hero_power.to_dict(), 201
+
+    except Exception as e:
+        return {"errors": [str(e)]}, 400
