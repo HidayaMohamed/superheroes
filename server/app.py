@@ -29,9 +29,17 @@ def get_hero(id):
 
     return hero.to_dict(), 200
 
+@app.get("/powers")
+def get_powers():
+    powers = Power.query.all()
+    return jsonify([power.to_dict() for power in powers])
 
-
-
+@app.get("/powers/<int:id>")
+def get_power(id):
+    power = Power.query.get(id)
+    if not power:
+        return {"error": "Power not found"}, 404
+    return power.to_dict(), 200
 
 
 
