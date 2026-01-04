@@ -1,4 +1,4 @@
-from flask import Flask,request, make_response,jsonify
+from flask import Flask,request,jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
@@ -41,6 +41,7 @@ def get_power(id):
         return {"error": "Power not found"}, 404
     return power.to_dict(), 200
 
+@app.patch("/powers/<int:id>")
 def update_power(id):
     power = Power.query.get(id)
     if not power:
