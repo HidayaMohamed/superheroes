@@ -27,7 +27,18 @@ class Hero(db.Model, SerializerMixin):
 
 
 class Power(db.Model, SerializerMixin):
-    pass
+    __tablename__ = "powers"
+
+    serialize_rules = ("-hero_powers.power",)
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    description = db.Column(db.String)
+
+    hero_powers = db.relationship(
+        "HeroPower",
+        back_populates="power",
+    )
 
 class HeroPower(db.Model, SerializerMixin):
-    pass
+   pass
