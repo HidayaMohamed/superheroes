@@ -21,7 +21,13 @@ def get_heroes():
         for hero in heroes
     ])
 
+@app.get("/heroes/<int:id>")
+def get_hero(id):
+    hero = Hero.query.get(id)
+    if not hero:
+        return {"error": "Hero not found"}, 404
 
+    return hero.to_dict(), 200
 
 
 
