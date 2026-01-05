@@ -23,6 +23,7 @@ class Hero(db.Model, SerializerMixin):
     hero_powers = db.relationship(
         "HeroPower",
         back_populates="hero",
+        cascade="all, delete-orphan"
     )
 
 
@@ -38,6 +39,7 @@ class Power(db.Model, SerializerMixin):
     hero_powers = db.relationship(
         "HeroPower",
         back_populates="power",
+        cascade="all, delete-orphan"
     )
 
     @validates("description")
