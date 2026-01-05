@@ -41,6 +41,20 @@ pip
 
 Virtual environment (recommended)
 
+## API Endpoints
+GET /heroes  
+
+GET /heroes/:id  
+
+GET /powers  
+
+GET /powers/:id  
+
+PATCH /powers/:id 
+
+POST /hero_powers 
+
+
 ## Support and contact details
 GitHub - github.com/HidayaMohamed               
 email - hidayamohaed002@gmail.com
