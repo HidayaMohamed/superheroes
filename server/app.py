@@ -35,7 +35,7 @@ def index():
     }, 200
 
 ## GET /heroes
-@app.route("/heroes")
+@app.get("/heroes")
 def get_heroes():
     # Query all Hero records from the database
     heroes = Hero.query.all()

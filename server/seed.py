@@ -56,16 +56,16 @@ with app.app_context():
     # Assign Hero Powers 
     # Format: (hero_id, power_id, strength)
     hero_power_data = [
-        (1, 2, "Strong"),  # Kamala Khan - flight
-        (2, 1, "Average"), # Doreen Green - super strength
-        (3, 3, "Strong"),  # Gwen Stacy - super human senses
-        (4, 4, "Weak"),    # Janet Van Dyne - elasticity
-        (5, 1, "Strong"),  # Wanda Maximoff - super strength
-        (6, 2, "Average"), # Carol Danvers - flight
-        (7, 1, "Strong"),  # Jean Grey - super strength
-        (8, 3, "Average"), # Ororo Munroe - super human senses
-        (9, 1, "Weak"),    # Kitty Pryde - super strength
-        (10, 3, "Strong")  # Elektra - super human senses
+        (1, 2, "Strong"),  
+        (2, 1, "Average"),
+        (3, 3, "Strong"),  
+        (4, 4, "Weak"),    
+        (5, 1, "Strong"),  
+        (6, 2, "Average"), 
+        (7, 1, "Strong"),  
+        (8, 3, "Average"), 
+        (9, 1, "Weak"),    
+        (10, 3, "Strong")  
     ]
 
      # Create HeroPower objects
