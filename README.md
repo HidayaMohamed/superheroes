@@ -9,6 +9,23 @@
 The Superheroes API is a Flask-based RESTful web service that allows users to manage heroes and their superpowers.
 It supports creating and retrieving heroes, powers, and hero–power relationships, with built-in validations and clean JSON responses.
 
+## Project Structure - server directory
+── app.py
+├── instance
+│   └── app.db
+├── migrations
+│   ├── alembic.ini
+│   ├── env.py
+│   ├── README
+│   ├── script.py.mako
+│   └── versions
+│       └── 5c124a2b9e45_initial.py
+├── models.py
+├── __pycache__
+│   └── app.cpython-38.pyc
+└── seed.py
+
+
 ## Installation
 You use git clone to be able to download the documents in the GitHub
 

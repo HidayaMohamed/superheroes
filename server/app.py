@@ -1,12 +1,16 @@
 # Imports
+# Imported flask mial and os
+from flask_mail import Mail, Message
+import os
 from flask import Flask,request,jsonify
-from flask_sqlalchemy import SQLAlchemy
+# from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
 from models import db, Hero, Power, HeroPower
 
 # Create the Flask application instance
 app = Flask(__name__)
+
 # Configure the SQLite database location
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
 # Disable SQLAlchemy event notification
@@ -14,10 +18,21 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 # Disable JSON response compacting 
 app.json.compact = False
 
+# Flask-Mail configuration
+app.config["MAIL_SERVER"] = "smtp.gmail.com"
+app.config["MAIL_PORT"] = 587
+app.config["MAIL_USE_TLS"] = True
+app.config["MAIL_USE_SSL"] = False
+app.config["MAIL_USERNAME"] = os.environ.get("MAIL_USERNAME")
+app.config["MAIL_PASSWORD"] = os.environ.get("MAIL_PASSWORD")
+app.config["MAIL_DEFAULT_SENDER"] = app.config["MAIL_USERNAME"]
+
 # Initialize Flask-Migrate with app and database
 migrate = Migrate(app, db)
 # Attach SQLAlchemy instance to the Flask app
 db.init_app(app)
+# Mail instance
+mail = Mail(app)
 
 # App index route with a message on how to get to the  API endpoints
 @app.route('/')
@@ -119,3 +134,19 @@ def create_hero_power():
     except Exception as e:
         # Catch validation or foreign key errors
         return {"errors": [str(e)]}, 400
+    
+@app.route("/send-test-email", methods=["GET"])
+def send_test_email():
+    if not app.config["MAIL_USERNAME"]:
+        return {"error": "Mail not configured"}, 500
+
+    msg = Message(
+        subject="Flask-Mail Test",
+        recipients=[app.config["MAIL_USERNAME"]],
+        body="Flask-Mail is working!"
+    )
+    mail.send(msg)
+    return {"message": "Email sent successfully"}, 200
+
+if __name__ == "__main__":
+    app.run(debug=True)
